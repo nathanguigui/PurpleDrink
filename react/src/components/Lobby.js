@@ -11,7 +11,7 @@ const Lobby = () => {
     const [errors, setErrors] = useState(null);
 
     const handleCreateRoom = () => {
-        if (!context.currentPlayer.length) {
+        if (!context.currentPlayer) {
             setErrors(["You must set username"]);
             return
         }
@@ -21,7 +21,7 @@ const Lobby = () => {
     return (
         <div>
             {context.roomId && (<Redirect to={{pathname: "/game/" + context.roomId}} />)}
-            <input value={context.currentPlayer} onChange={(e) => {context.setCurrentPlayer(e.target.value)}}/>
+            <input placeholder="Enter your pseudo here" value={context.currentPlayer} onChange={(e) => {context.setCurrentPlayer(e.target.value)}}/>
             {errors && errors.map((err) => <h4>{err}</h4>)}
             <button onClick={() => {handleCreateRoom()}}>Create a room</button>
         </div>
