@@ -16,29 +16,46 @@ const Room = () => {
 
     useEffect(() => {
 
+        // reconnect event
         context.socket.on("playerReconnected", data => {
             context.setCurrentPlayer(data);
             if (data === null) window.localStorage.clear();
             setLoading(false)
         });
 
+        // successfully joined event
+        context.socket.on("joinSuccessful", data => {
+            window.localStorage.setItem("playerHash", data.playerHash);
+            setLoading(false)
+        });
+
+        // updatePlayerList event
+        context.socket.on("updatePlayerList", data => {
+            console.log(data);
+        });
+
+        // if local storage hash try reconnect
         if (window.localStorage.getItem("playerHash"))
-            context.socket.emit("reconnectPlayer", window.localStorage.getItem("playerHash"))
+            context.socket.emit("reconnectPlayer", window.localStorage.getItem("playerHash"));
+        else // show join form
+            setLoading(false)
     }, []);
 
+    // send join request to server
     const handleJoinRoom = () => {
         if (!context.currentPlayer.length) {
             setErrors(["You must set username"]);
             return
         }
-        context.socket.emit("joinRoom", context.currentPlayer)
+        context.socket.emit("joinRoom", {playerName: context.currentPlayer, roomId: roomID});
+        setLoading(true);
     };
 
     if (loading) return <Loading/>;
 
     return (
         <div>
-            {context.currentPlayer ?
+            {window.localStorage.getItem("playerHash") ?
             <>
                 <p>here is room</p>
                 <p>{roomID}</p>
