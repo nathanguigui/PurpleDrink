@@ -2,55 +2,62 @@ import React, {useEffect, useRef, useState} from 'react';
 import Card from 'react-playing-card';
 import socketIOClient from "socket.io-client";
 import './App.css';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect
+} from "react-router-dom";
+import Lobby from "./components/Lobby";
+import Room from "./components/Room";
+import NotFound from "./components/NotFound";
+
+export const AppContext = React.createContext();
+
+const permanentSocket = socketIOClient("http://127.0.0.1:4001");
 
 function App() {
 
-  const [playerList, setPlayerList] = useState([]);
+    const [currentPlayer, setCurrentPlayer] = useState(null);
 
-  const [newPlayer, setNewPlayer] = useState("");
+    const [roomId, setRoomId] = useState(null);
 
-  const [started, setStarted] = useState(false);
+    const [socket, setSocket] = useState(permanentSocket);
 
-  const [socket, setSocket] = useState(socketIOClient("http://127.0.0.1:4001"));
+    useEffect(() => {
+        /*socket.on("newPlayer", data => {
+            playerList.push(data);
+            setPlayerList([...playerList]);
+        });*/
+        socket.on("roomCreated", data => {
+            setRoomId(data.roomId);
+            window.localStorage.setItem("playerHash", data.playerHash)
+        })
+    }, []);
 
-  useEffect(() => {
-    socket.on("newPlayer", data => {
-      playerList.push(data);
-      setPlayerList([...playerList]);
-    });
-
-    socket.on("gameStarted", () => {
-      setStarted(true);
-    })
-
-  }, []);
-
-  const handleAddPlayer = () => {
-    socket.emit("sendAddPlayer", newPlayer);
-    setNewPlayer("");
-  }
-
-  return (
-    <div className="App">
-      <div>
-        <h4>Player list</h4>
-        {playerList.map((user) => {
-          return (<><span key={user}>{user}</span><br/></>)
-        })}
-      </div>
-      {!started &&
-        <>
-          <div>
-            <input value={newPlayer} onChange={(e) => {setNewPlayer(e.target.value)}}/>
-            <button onClick={() => {handleAddPlayer()}}>Add player</button>
-          </div>
-          <div>
-            <button onClick={() => {socket.emit("startGame")}}>Start game</button>
-          </div>
-        </>
-      }
-    </div>
-  );
+    return (
+        <Router>
+            <AppContext.Provider value={{
+                currentPlayer: currentPlayer,
+                setCurrentPlayer: setCurrentPlayer,
+                socket: socket,
+                roomId: roomId
+            }}>
+                <Switch>
+                    <Route exact path="/">
+                        <Lobby/>
+                    </Route>
+                    <Route path="/game/:roomID">
+                        <Room/>
+                    </Route>
+                    <Route path="*">
+                        <NotFound/>
+                    </Route>
+                </Switch>
+            </AppContext.Provider>
+        </Router>
+    );
 }
 
 export default App;
