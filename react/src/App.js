@@ -5,9 +5,7 @@ import './App.css';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    Redirect
+    Route
 } from "react-router-dom";
 import Lobby from "./components/Lobby";
 import Room from "./components/Room";
@@ -26,10 +24,6 @@ function App() {
     const [socket, setSocket] = useState(permanentSocket);
 
     useEffect(() => {
-        /*socket.on("newPlayer", data => {
-            playerList.push(data);
-            setPlayerList([...playerList]);
-        });*/
         socket.on("roomCreated", data => {
             setRoomId(data.roomId);
             window.localStorage.setItem("playerHash", data.playerHash)
