@@ -17,7 +17,7 @@ const permanentSocket = socketIOClient("http://127.0.0.1:4001");
 
 function App() {
 
-    const [currentPlayer, setCurrentPlayer] = useState(null);
+    const [currentPlayer, setCurrentPlayer] = useState("");
 
     const [roomId, setRoomId] = useState(null);
 

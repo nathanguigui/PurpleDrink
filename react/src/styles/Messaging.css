@@ -1,0 +1,52 @@
+
+.messaging {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.messaging-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #d6d6d6;
+    opacity: .95;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.messaging-messages {
+    display: flex;
+    flex-direction: column;
+    background-color: #d6d6d6;
+    opacity: .95;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-height: 300px;
+    overflow: auto;
+}
+
+
+/* width */
+.messaging-messages::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.messaging-messages::-webkit-scrollbar-track {
+    background: #3af1be;
+    border-radius: 5px;
+
+}
+
+/* Handle */
+.messaging-messages::-webkit-scrollbar-thumb {
+    background: #007d2a;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+.messaging-messages::-webkit-scrollbar-thumb:hover {
+    background: #cc0000;
+    border-radius: 5px;
+}
