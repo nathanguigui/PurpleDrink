@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../App";
-import {
-    Link,
-    useParams
-} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Loading from "./Loading";
+import "../styles/Room.css"
+import NetworkStatus from "./NetworkStatus";
+import Messaging from "./Messaging";
+import RoomID from "./RoomID";
 
 const Room = () => {
     const context = useContext(AppContext);
@@ -16,10 +17,6 @@ const Room = () => {
     const [errors, setErrors] = useState(null);
 
     const [players, setPlayers] = useState([]);
-
-    const [currentMessage, setCurrentMessage] = useState(null);
-
-    const [messages, setMessages] = useState([]);
 
     let {roomID} = useParams();
 
@@ -49,12 +46,6 @@ const Room = () => {
             setLoading(false)
         });
 
-        // newMessage event
-        context.socket.on("newMessage", data => {
-            messages.push(data);
-            setMessages([...messages])
-        });
-
         // if local storage hash try reconnect
         if (window.localStorage.getItem("playerHash"))
             context.socket.emit("reconnectPlayer", {
@@ -75,23 +66,17 @@ const Room = () => {
         setLoading(true);
     };
 
-    // send message
-    const handleSendMessage = () => {
-        context.socket.emit("sendMessage", {sender: context.currentPlayer, message: currentMessage, roomID: roomID});
-        setCurrentMessage("")
-    };
-
     if (loading) return <Loading/>;
 
     return (
-        <div>
+        <div style={{backgroundImage: "url(" + process.env.PUBLIC_URL + "/felt.png)"}} className={"room"}>
+            <NetworkStatus status={context.networkStatus} />
             {window.localStorage.getItem("playerHash") ?
             <>
-                <p>here is room</p>
-                <p>{roomID}</p>
+                <RoomID/>
                 <p>current player: {context.currentPlayer}</p>
                 <div>
-                    {players.length ?
+                    {players.length !== 1 ?
                         players.map((player) => {
                             if (context.currentPlayer !== player)
                                 return <><span key={player}>{player}</span><br/></>;
@@ -99,23 +84,7 @@ const Room = () => {
                         <span>no player in the room</span>
                     }
                 </div>
-                <div>
-                    {messages.length ?
-                        messages.map((messageData) => {
-                            return (
-                                <div>
-                                    <span>{messageData.sender}</span>
-                                    <span>{messageData.message}</span>
-                                </div>
-                            )
-                        }) :
-                        <span>no messages</span>
-                    }
-                </div>
-                <div>
-                    <input value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}} placeholder={"enter message here"}/>
-                    <button onClick={() => {handleSendMessage()}}>send</button>
-                </div>
+                <Messaging/>
             </> :
             <>
                 {lobbyNotFound ?
