@@ -6,16 +6,21 @@
     width: 100%;
     justify-content: center;
     margin-bottom: 10px;
+    transition: all ease-in-out 1s;
 }
 
 .room-id-panel {
     background-color: #d6d6d6;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
     opacity: .95;
+}
+
+.room-id-hidden {
+    transform: translateY(500px);
 }
 
 .room-id-tooltip {

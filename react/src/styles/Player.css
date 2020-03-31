@@ -1,8 +1,14 @@
 
 .player-list-ctn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    transition: all ease-in-out 1s;
+}
+
+.player-hidden {
+    transform: translate(-500px, 500px);
 }
 
 .player-list {
@@ -10,6 +16,7 @@
     border-radius: 5px;
     padding: 10px;
     margin-left: 10px;
+    margin-bottom: 10px;
     opacity: .95;
     font-weight: bold;
     text-align: center;

@@ -1,12 +1,13 @@
 import React, {useContext} from "react";
 import {AppContext} from "../App";
+import "../styles/Player.css"
 
-const PlayerList = ({players}) => {
+const PlayerList = ({players, playersVisible}) => {
 
     const context = useContext(AppContext);
 
     return (
-         <div className={"player-list-ctn"}>
+         <div className={playersVisible ? "player-list-ctn" : "player-list-ctn player-hidden"}>
              <div className={"player-list"}>
                  <div className={"player-you"}><div>{context.currentPlayer}</div> <div className={"current-player-label"}>you</div></div>
                  <div>

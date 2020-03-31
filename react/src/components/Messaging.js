@@ -5,7 +5,7 @@ import "../styles/Messaging.css"
 import "../styles/material-css.css"
 
 
-const Messaging = () => {
+const Messaging = ({messagesVisible}) => {
 
     const context = useContext(AppContext);
 
@@ -31,7 +31,7 @@ const Messaging = () => {
     };
 
     return (
-        <div className={"messaging"}>
+        <div className={messagesVisible ? "messaging" : "messaging messaging-hidden"}>
             <div className={"messaging-messages"}>
                 {messages.length ?
                     messages.map((messageData) => {
