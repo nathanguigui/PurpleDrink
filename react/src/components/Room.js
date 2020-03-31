@@ -6,6 +6,8 @@ import "../styles/Room.css"
 import NetworkStatus from "./NetworkStatus";
 import Messaging from "./Messaging";
 import RoomID from "./RoomID";
+import "../styles/Player.css"
+import PlayerList from "./PlayerList";
 
 const Room = () => {
     const context = useContext(AppContext);
@@ -74,16 +76,7 @@ const Room = () => {
             {window.localStorage.getItem("playerHash") ?
             <>
                 <RoomID/>
-                <p>current player: {context.currentPlayer}</p>
-                <div>
-                    {players.length !== 1 ?
-                        players.map((player) => {
-                            if (context.currentPlayer !== player)
-                                return <><span key={player}>{player}</span><br/></>;
-                        }) :
-                        <span>no player in the room</span>
-                    }
-                </div>
+                <PlayerList players={players}/>
                 <Messaging/>
             </> :
             <>
