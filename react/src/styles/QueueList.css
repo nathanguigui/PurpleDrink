@@ -1,0 +1,68 @@
+
+.queue-ctr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.queue-ctn {
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    opacity: .95;
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    width: 150px;
+    overflow-y: scroll;
+}
+
+.queue-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.queue-item-logo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.queue-remove {
+    color: indianred;
+    cursor: pointer;
+}
+
+
+/* width */
+.queue-ctn::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.queue-ctn::-webkit-scrollbar-track {
+    background: #3af1be;
+    border-radius: 5px;
+
+}
+
+/* Handle */
+.queue-ctn::-webkit-scrollbar-thumb {
+    background: #007d2a;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+.queue-ctn::-webkit-scrollbar-thumb:hover {
+    background: #cc0000;
+    border-radius: 5px;
+}

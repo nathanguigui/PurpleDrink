@@ -1,0 +1,32 @@
+
+.game-control-ctr {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+}
+
+.game-control-ctn {
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    opacity: .95;
+    flex-direction: column;
+    display: flex;
+}
+
+.game-control-logo {
+    width: 20px;
+    margin-left: 5px;
+}
+
+.game-control-btn {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
