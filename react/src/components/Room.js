@@ -6,8 +6,10 @@ import "../styles/Room.css"
 import NetworkStatus from "./NetworkStatus";
 import Messaging from "./Messaging";
 import RoomID from "./RoomID";
-import "../styles/Player.css"
 import PlayerList from "./PlayerList";
+import Toolbox from "./Toolbox";
+import GameControl from "./GameControl";
+import QueueList from "./QueueList";
 
 const Room = () => {
     const context = useContext(AppContext);
@@ -19,6 +21,14 @@ const Room = () => {
     const [errors, setErrors] = useState(null);
 
     const [players, setPlayers] = useState([]);
+
+    const [messagesVisible, setMessagesVisible] = useState(true);
+
+    const [playersVisible, setPlayerVisible] = useState(true);
+
+    const [roomIdVisible, setRoomIdVisible] = useState(true);
+
+    const [queueList, setQueueList] = useState([]);
 
     let {roomID} = useParams();
 
@@ -75,9 +85,15 @@ const Room = () => {
             <NetworkStatus status={context.networkStatus} />
             {window.localStorage.getItem("playerHash") ?
             <>
-                <RoomID/>
-                <PlayerList players={players}/>
-                <Messaging/>
+                <RoomID roomIdVisible={roomIdVisible}/>
+                <PlayerList players={players} playersVisible={playersVisible}/>
+                <Messaging messagesVisible={messagesVisible}/>
+                <GameControl queueList={queueList} setQueueList={setQueueList}/>
+                <QueueList queueList={queueList} setQueueList={setQueueList}/>
+                <Toolbox messagesVisible={messagesVisible} setMessagesVisible={setMessagesVisible}
+                         playersVisible={playersVisible} setPlayerVisible={setPlayerVisible}
+                         roomIdVisible={roomIdVisible} setRoomIdVisible={setRoomIdVisible}
+                />
             </> :
             <>
                 {lobbyNotFound ?

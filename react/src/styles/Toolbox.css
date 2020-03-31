@@ -1,0 +1,22 @@
+
+.toolbox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.toolbox-background {
+    padding: 5px;
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    opacity: .95;
+}
+
+.matter-checkbox {
+    margin-left: 5px;
+    margin-right: 5px;
+}

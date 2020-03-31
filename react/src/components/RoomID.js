@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import "../styles/RoomID.css"
 
-const RoomID = () => {
+const RoomID = ({roomIdVisible}) => {
 
     const [copied, setCopied] = useState(false);
 
@@ -18,7 +18,7 @@ const RoomID = () => {
     let {roomID} = useParams();
 
     return (
-        <div className={"room-id-container"}>
+        <div className={roomIdVisible ? "room-id-container" : "room-id-container room-id-hidden"}>
             <div className={"room-id-panel"}>
                 <div>Room ID:</div>
                 <p>{roomID}</p>

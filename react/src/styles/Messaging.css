@@ -3,6 +3,11 @@
     position: absolute;
     right: 10px;
     bottom: 10px;
+    transition: all ease-in-out 1s;
+}
+
+.messaging-hidden {
+    transform: translate(500px, 500px);
 }
 
 .messaging-form {
