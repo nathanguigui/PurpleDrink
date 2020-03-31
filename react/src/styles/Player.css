@@ -1,0 +1,36 @@
+
+.player-list-ctn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.player-list {
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    opacity: .95;
+    font-weight: bold;
+    text-align: center;
+}
+
+.player-you {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.current-player-label {
+    background-color: forestgreen;
+    padding: 3px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-other {
+    margin-top: 5px;
+}
