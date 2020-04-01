@@ -5,14 +5,19 @@ import Sandwich from "../assets/sandwich.svg"
 import Red from "../assets/red.svg"
 import Black from "../assets/black.svg"
 
-const QueueList = ({queueList, setQueueList}) => {
+interface QueueListProps {
+    queueList: Array<string>,
+    setQueueList: any
+}
 
-    const remFromQueue = (idx) => {
-        queueList.splice(idx, 1);
-        setQueueList([...queueList])
+const QueueList = (props: QueueListProps) => {
+
+    const remFromQueue = (idx:number) => {
+        props.queueList.splice(idx, 1);
+        props.setQueueList([...props.queueList])
     };
 
-    const getNameWithIcon = (action) => {
+    const getNameWithIcon = (action:string) => {
         let ret;
         switch (action) {
             case "red":
@@ -37,8 +42,8 @@ const QueueList = ({queueList, setQueueList}) => {
     return (
         <div className={"queue-ctr"}>
             <div className={"queue-ctn"}>
-                <div style={{textAlign: "center", fontWeight: 600}}>Queue list ({queueList.length})</div>
-                {queueList.map((item, idx) =>
+                <div style={{textAlign: "center", fontWeight: 600}}>Queue list ({props.queueList.length})</div>
+                {props.queueList.map((item, idx) =>
                     <div className={"queue-item"}>
                         {getNameWithIcon(item)}
                         <div className={"queue-remove"} onClick={() => remFromQueue(idx)}>✘</div>

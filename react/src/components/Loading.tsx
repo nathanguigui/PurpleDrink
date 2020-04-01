@@ -1,4 +1,4 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import "../styles/loading.css";
 
 
@@ -10,7 +10,7 @@ const Loading = () => {
     )
 };
 
-const LoadingStyle = {
+const LoadingStyle: CSSProperties = {
     display: "flex",
     position: "absolute",
     height: "100%",

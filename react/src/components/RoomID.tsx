@@ -1,9 +1,13 @@
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import "../styles/RoomID.css"
+import CopyToClipboard from "react-copy-to-clipboard";
 
-const RoomID = ({roomIdVisible}) => {
+interface RoomIDProps {
+    roomIdVisible: boolean
+}
+
+const RoomID = (props: RoomIDProps) => {
 
     const [copied, setCopied] = useState(false);
 
@@ -18,7 +22,7 @@ const RoomID = ({roomIdVisible}) => {
     let {roomID} = useParams();
 
     return (
-        <div className={roomIdVisible ? "room-id-container" : "room-id-container room-id-hidden"}>
+        <div className={props.roomIdVisible ? "room-id-container" : "room-id-container room-id-hidden"}>
             <div className={"room-id-panel"}>
                 <div>Room ID:</div>
                 <p>{roomID}</p>

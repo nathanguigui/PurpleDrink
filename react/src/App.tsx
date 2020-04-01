@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Card from 'react-playing-card';
+//import Card from 'react-playing-card';
 import socketIOClient from "socket.io-client";
 import './App.css';
 import {
@@ -11,7 +11,7 @@ import Lobby from "./components/Lobby";
 import Room from "./components/Room";
 import NotFound from "./components/NotFound";
 
-export const AppContext = React.createContext();
+export const AppContext = React.createContext<any>(undefined);
 
 const permanentSocket = socketIOClient("http://127.0.0.1:4001");
 
@@ -24,7 +24,7 @@ function App() {
     const [socket, setSocket] = useState(permanentSocket);
 
     useEffect(() => {
-        socket.on("roomCreated", data => {
+        socket.on("roomCreated", (data:any) => {
             setRoomId(data.roomId);
             window.localStorage.setItem("playerHash", data.playerHash)
         })

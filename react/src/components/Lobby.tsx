@@ -11,7 +11,7 @@ const Lobby = () => {
 
     const context = useContext(AppContext);
 
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState<Array<string>>([]);
 
     const handleCreateRoom = () => {
         if (!context.currentPlayer) {
@@ -23,7 +23,7 @@ const Lobby = () => {
 
     return (
         <>
-        <NetworkStatus status={context.networkStatus} />
+        <NetworkStatus />
         <div style={{backgroundImage: "url(" + process.env.PUBLIC_URL + "/felt.png)"}} className={"lobby"}>
             <div className={"lobby-ctn"}>
                 {context.roomId && (<Redirect to={{pathname: "/game/" + context.roomId}} />)}
