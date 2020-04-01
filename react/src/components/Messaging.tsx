@@ -4,21 +4,29 @@ import {AppContext} from "../App";
 import "../styles/Messaging.css"
 import "../styles/material-css.css"
 
+interface MessagingProps {
+    messagesVisible: boolean
+}
 
-const Messaging = ({messagesVisible}) => {
+interface MessagingMessage {
+    sender: string
+    message: string
+}
+
+const Messaging = (props: MessagingProps) => {
 
     const context = useContext(AppContext);
 
     const [currentMessage, setCurrentMessage] = useState("");
 
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<Array<MessagingMessage>>([]);
 
     let {roomID} = useParams();
 
     useEffect(() => {
 
         // newMessage event
-        context.socket.on("newMessage", data => {
+        context.socket.on("newMessage", (data:MessagingMessage) => {
             messages.push(data);
             setMessages([...messages])
         });
@@ -31,7 +39,7 @@ const Messaging = ({messagesVisible}) => {
     };
 
     return (
-        <div className={messagesVisible ? "messaging" : "messaging messaging-hidden"}>
+        <div className={props.messagesVisible ? "messaging" : "messaging messaging-hidden"}>
             <div className={"messaging-messages"}>
                 {messages.length ?
                     messages.map((messageData) => {
